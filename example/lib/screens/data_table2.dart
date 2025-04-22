@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../data_sources.dart';
 import '../nav_helper.dart';
@@ -25,6 +26,7 @@ class DataTable2DemoState extends State<DataTable2Demo> {
   bool _initialized = false;
   bool showCustomArrow = false;
   bool sortArrowsAlwaysVisible = false;
+  int clickCount = 0;
 
   @override
   void didChangeDependencies() {
@@ -50,10 +52,20 @@ class DataTable2DemoState extends State<DataTable2Demo> {
     bool ascending,
   ) {
     _dessertsDataSource.sort<T>(getField, ascending);
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = ascending;
-    });
+    clickCount = (clickCount + 1) % 3;
+
+    if (clickCount == 0) {
+      setState(() {
+        _sortColumnIndex = null;
+      });
+    } else {
+      bool ascending = clickCount == 1;
+      _dessertsDataSource.sort<T>(getField, ascending);
+      setState(() {
+        _sortColumnIndex = columnIndex;
+        _sortAscending = ascending;
+      });
+    }
   }
 
   @override
@@ -94,15 +106,19 @@ class DataTable2DemoState extends State<DataTable2Demo> {
                     ? Stack(
                         children: [
                           Padding(
-                              padding: const EdgeInsets.only(right: 0),
-                              child: _SortIcon(
-                                  ascending: true,
-                                  active: sorted && ascending)),
+                            padding: const EdgeInsets.only(right: 0),
+                            child: _SortIcon(
+                              ascending: true,
+                              active: sorted && ascending,
+                            ),
+                          ),
                           Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: _SortIcon(
-                                  ascending: false,
-                                  active: sorted && !ascending)),
+                            padding: const EdgeInsets.only(left: 0),
+                            child: _SortIcon(
+                              ascending: false,
+                              active: sorted && !ascending,
+                            ),
+                          ),
                         ],
                       )
                     : null
@@ -125,9 +141,11 @@ class DataTable2DemoState extends State<DataTable2Demo> {
             minWidth: 900,
             sortColumnIndex: _sortColumnIndex,
             sortAscending: _sortAscending,
-            sortArrowIcon: Icons.keyboard_arrow_up, // custom arrow
+            sortArrowIcon: SvgPicture.asset(
+              'assets/listviews/ico_listview_sort_none.svg',
+            ),
             sortArrowAnimationDuration:
-                const Duration(milliseconds: 500), // custom animation duration
+                const Duration(milliseconds: 5), // custom animation duration
             onSelectAll: (val) =>
                 setState(() => _dessertsDataSource.selectAll(val)),
             columns: [
@@ -214,10 +232,13 @@ class _SortIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      ascending ? Icons.arrow_drop_up_rounded : Icons.arrow_drop_down_rounded,
-      size: 28,
-      color: active ? Colors.cyan : null,
+    return SvgPicture.asset(
+      ascending
+          ? 'assets/listviews/ico_listview_sort_up.svg'
+          : 'assets/listviews/ico_listview_sort_down.svg',
+      width: 13,
+      height: 13,
+      color: active ? Colors.orange : Colors.transparent,
     );
   }
 }

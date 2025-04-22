@@ -27,6 +27,7 @@ class PaginatedDataTableDemoState extends State<PaginatedDataTableDemo>
   final RestorableIntN _sortColumnIndex = RestorableIntN(null);
   late DessertDataSource _dessertsDataSource;
   bool initialized = false;
+  int clickCount = 0;
 
   @override
   String get restorationId => 'paginated_data_table_demo';
@@ -93,10 +94,24 @@ class PaginatedDataTableDemoState extends State<PaginatedDataTableDemo>
     bool ascending,
   ) {
     _dessertsDataSource.sort<T>(getField, ascending);
-    setState(() {
-      _sortColumnIndex.value = columnIndex;
-      _sortAscending.value = ascending;
-    });
+    clickCount = (clickCount + 1) % 3;
+
+    // setState(() {
+    //   _sortColumnIndex.value = columnIndex;
+    //   _sortAscending.value = ascending;
+    // });
+    if (clickCount == 0) {
+      setState(() {
+        _sortColumnIndex.value = null;
+      });
+    } else {
+      bool ascending = clickCount == 1;
+      _dessertsDataSource.sort<T>(getField, ascending);
+      setState(() {
+        _sortColumnIndex.value = columnIndex;
+        _sortAscending.value = ascending;
+      });
+    }
   }
 
   @override

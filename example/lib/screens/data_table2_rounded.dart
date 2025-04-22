@@ -15,6 +15,7 @@ class DataTable2RoundedDemoState extends State<DataTable2RoundedDemo> {
   int? _sortColumnIndex;
   late DessertDataSource _dessertsDataSource;
   bool _initialized = false;
+  int clickCount = 0;
 
   @override
   void didChangeDependencies() {
@@ -34,10 +35,22 @@ class DataTable2RoundedDemoState extends State<DataTable2RoundedDemo> {
     bool ascending,
   ) {
     _dessertsDataSource.sort<T>(getField, ascending);
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = ascending;
-    });
+    clickCount = (clickCount + 1) % 3;
+
+    // Tăng số lần click
+
+    if (clickCount == 0) {
+      setState(() {
+        _sortColumnIndex = null;
+      });
+    } else {
+      bool ascending = clickCount == 1;
+      _dessertsDataSource.sort<T>(getField, ascending);
+      setState(() {
+        _sortColumnIndex = columnIndex;
+        _sortAscending = ascending;
+      });
+    }
   }
 
   @override

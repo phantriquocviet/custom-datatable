@@ -9,6 +9,7 @@ import 'dart:math' as math;
 import 'package:async/async.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'data_table_2.dart';
 
@@ -775,7 +776,9 @@ class PaginatedDataTable2State extends State<PaginatedDataTable2> {
           columns: widget.columns,
           sortColumnIndex: widget.sortColumnIndex,
           sortAscending: widget.sortAscending,
-          sortArrowIcon: widget.sortArrowIcon,
+          sortArrowIcon: SvgPicture.asset(
+            'assets/listviews/ico_listview_sort_none.svg',
+          ),
           sortArrowIconColor: widget.sortArrowIconColor,
           sortArrowAnimationDuration: widget.sortArrowAnimationDuration,
           sortArrowBuilder: widget.sortArrowBuilder,

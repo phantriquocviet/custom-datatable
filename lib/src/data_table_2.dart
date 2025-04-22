@@ -8,6 +8,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 bool dataTableShowLogs = true;
 
@@ -184,12 +185,19 @@ class DataTable2 extends DataTable {
     this.fixedLeftColumns = 0,
     this.lmRatio = 1.2,
     this.sortArrowAnimationDuration = const Duration(milliseconds: 150),
-    this.sortArrowIcon = Icons.arrow_upward,
+    Widget? sortArrowIcon,
     this.sortArrowIconColor,
     this.sortArrowBuilder,
     this.headingRowDecoration,
     required super.rows,
-  })  : assert(fixedLeftColumns >= 0),
+  })  : sortArrowIcon = sortArrowIcon ??
+            SvgPicture.asset(
+              'assets/listviews/ico_listview_sort_none.svg',
+              width: 13,
+              height: 13,
+              color: Colors.black38,
+            ),
+        assert(fixedLeftColumns >= 0),
         assert(fixedTopRows >= 0);
 
   static final LocalKey _headingRowKey = UniqueKey();
@@ -233,7 +241,7 @@ class DataTable2 extends DataTable {
   /// Icon to be displayed when sorting is applied to a column.
   /// If not set, the default icon is [Icons.arrow_upward].
   /// When set always overrides/preceeds default arrow icons.
-  final IconData sortArrowIcon;
+  final Widget sortArrowIcon;
 
   /// When set always overrides/preceeds default arrow icon color.
   final Color? sortArrowIconColor;
@@ -428,20 +436,31 @@ class DataTable2 extends DataTable {
     var customArrows =
         sortArrowBuilder != null ? sortArrowBuilder!(ascending, sorted) : null;
     label = Row(
-      textDirection: numeric ? TextDirection.rtl : null,
+      textDirection: TextDirection.ltr,
       mainAxisAlignment: headingRowAlignment,
       children: <Widget>[
-        Flexible(child: label),
+        Flexible(child: label), // Đặt chữ trước
         if (onSort != null) ...<Widget>[
           customArrows ??
               _SortArrow(
-                visible: sorted,
-                up: sorted ? ascending : null,
+                visible: true,
+                up: sorted ? ascending : sorted,
                 duration: sortArrowAnimationDuration,
-                sortArrowIcon: sortArrowIcon,
+                sortArrowIcon: sorted
+                    ? SvgPicture.asset(
+                        'assets/listviews/ico_listview_sort_up.svg',
+                        width: 13,
+                        height: 13,
+                        color: Colors.orange,
+                      )
+                    : SvgPicture.asset(
+                        'assets/listviews/ico_listview_sort_none.svg',
+                        width: 13,
+                        height: 13,
+                        color: Colors.black38,
+                      ),
                 sortArrowIconColor: sortArrowIconColor,
               ),
-          const SizedBox(width: _sortArrowPadding),
         ],
       ],
     );
@@ -824,10 +843,12 @@ class DataTable2 extends DataTable {
                 paddingEnd = effectiveColumnSpacing / 2.0;
               }
 
-              final EdgeInsetsDirectional padding = EdgeInsetsDirectional.only(
-                start: paddingStart,
-                end: paddingEnd,
-              );
+              // final EdgeInsetsDirectional padding = EdgeInsetsDirectional.only(
+              //   start: paddingStart,
+              //   end: paddingEnd,
+              // );
+              final EdgeInsetsDirectional padding =
+                  EdgeInsetsDirectional.all(8);
 
               tableColumnWidths[displayColumnIndex] =
                   FixedColumnWidth(widths[dataColumnIndex]);
@@ -840,15 +861,21 @@ class DataTable2 extends DataTable {
                 tooltip: column.tooltip,
                 numeric: column.numeric,
                 onSort: column.onSort != null
-                    ? () => column.onSort!(dataColumnIndex,
-                        sortColumnIndex != dataColumnIndex || !sortAscending)
+                    ? () {
+                        column.onSort!(
+                            dataColumnIndex,
+                            sortColumnIndex != dataColumnIndex ||
+                                !sortAscending);
+                      }
                     : null,
                 sorted: dataColumnIndex == sortColumnIndex,
+
                 ascending: sortAscending,
                 overlayColor: effectiveHeadingRowColor,
                 headingRowAlignment: column.headingRowAlignment ??
                     dataTableTheme.headingRowAlignment ??
-                    MainAxisAlignment.start,
+                    MainAxisAlignment.spaceBetween,
+                // headingRowAlignment: MainAxisAlignment.spaceBetween,
               );
 
               headingRow.children[displayColumnIndex] =
@@ -1458,7 +1485,7 @@ class _SortArrow extends StatefulWidget {
 
   final Duration duration;
 
-  final IconData sortArrowIcon;
+  final Widget sortArrowIcon;
 
   final Color? sortArrowIconColor;
 
@@ -1553,23 +1580,17 @@ class _SortArrowState extends State<_SortArrow> with TickerProviderStateMixin {
   }
 
   static const double _arrowIconBaselineOffset = -1.5;
-  static const double _arrowIconSize = 16.0;
 
   @override
   Widget build(BuildContext context) {
     return Opacity(
       opacity: _opacityAnimation.value,
       child: Transform(
-        transform:
-            Matrix4.rotationZ(_orientationOffset + _orientationAnimation.value)
-              ..setTranslationRaw(0.0, _arrowIconBaselineOffset, 0.0),
-        alignment: Alignment.center,
-        child: Icon(
-          widget.sortArrowIcon,
-          color: widget.sortArrowIconColor,
-          size: _arrowIconSize,
-        ),
-      ),
+          transform: Matrix4.rotationZ(
+              _orientationOffset + _orientationAnimation.value)
+            ..setTranslationRaw(0.0, _arrowIconBaselineOffset, 0.0),
+          alignment: Alignment.center,
+          child: widget.sortArrowIcon),
     );
   }
 }

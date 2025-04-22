@@ -12,6 +12,7 @@ dependencies:
   flutter: 
     sdk: flutter
   async: ^2.10.0
+  flutter_svg: ^2.0.17
 
 
 dev_dependencies:
@@ -21,7 +22,6 @@ dev_dependencies:
   intl: ^0.20.0
   flutter_lints: ^5.0.0
   golden_toolkit: # Solving problem with not rendered fonts
-
 screenshots:
   - description: 'DataTable2 with fixed top row and left column and customized styling'
     path: screenshots/fixed_row_col.png

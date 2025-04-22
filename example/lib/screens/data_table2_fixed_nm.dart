@@ -32,7 +32,7 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
   int _fixedRows = 1;
   int _fixedCols = 1;
   int _dataItems = 30;
-
+  int clickCount = 0;
   DataRow _getRow(int index, [Color? color]) {
     final format = NumberFormat.decimalPercentPattern(
       locale: 'en',
@@ -89,10 +89,22 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
     bool ascending,
   ) {
     _dessertsDataSource.sort<T>(getField, ascending);
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = ascending;
-    });
+    clickCount = (clickCount + 1) % 3;
+
+    // Tăng số lần click
+
+    if (clickCount == 0) {
+      setState(() {
+        _sortColumnIndex = null;
+      });
+    } else {
+      bool ascending = clickCount == 1;
+      _dessertsDataSource.sort<T>(getField, ascending);
+      setState(() {
+        _sortColumnIndex = columnIndex;
+        _sortAscending = ascending;
+      });
+    }
   }
 
   Widget getTableFromSelectedType() {
@@ -135,91 +147,94 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
 
   DataTable2 getDataTable() {
     return DataTable2(
-        dividerThickness: 4,
-        scrollController: _controller,
-        columnSpacing: 0,
-        horizontalMargin: 12,
-        bottomMargin: 20,
-        border: TableBorder.all(width: 1.0, color: Colors.grey),
-        headingRowColor: WidgetStateProperty.resolveWith(
-            (states) => _fixedRows > 0 ? Colors.grey[200] : Colors.transparent),
-        headingRowDecoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.grey[400]!,
-              Colors.grey[200]!,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+      dividerThickness: 4,
+      scrollController: _controller,
+      columnSpacing: 0,
+      horizontalMargin: 12,
+      bottomMargin: 20,
+      border: TableBorder.all(width: 1.0, color: Colors.grey),
+      headingRowColor: WidgetStateProperty.resolveWith(
+          (states) => _fixedRows > 0 ? Colors.grey[200] : Colors.transparent),
+      headingRowDecoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.grey[400]!,
+            Colors.grey[200]!,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-        fixedColumnsColor: Colors.grey[300],
-        fixedCornerColor: Colors.grey[400],
-        minWidth: 1000,
-        fixedTopRows: _fixedRows,
-        fixedLeftColumns: _fixedCols,
-        sortColumnIndex: _sortColumnIndex,
-        sortAscending: _sortAscending,
-        onSelectAll: (val) => setState(() => selectAll(val)),
-        columns: [
-          DataColumn2(
-            label: const Text('Desert'),
-            size: ColumnSize.S,
-            onSort: (columnIndex, ascending) =>
-                _sort<String>((d) => d.name, columnIndex, ascending),
-          ),
-          DataColumn2(
-            label: const Text('Calories'),
-            size: ColumnSize.S,
-            numeric: true,
-            onSort: (columnIndex, ascending) =>
-                _sort<num>((d) => d.calories, columnIndex, ascending),
-          ),
-          DataColumn2(
-            label: const Text('Fat (gm)'),
-            size: ColumnSize.S,
-            numeric: true,
-            onSort: (columnIndex, ascending) =>
-                _sort<num>((d) => d.fat, columnIndex, ascending),
-          ),
-          DataColumn2(
-            label: const Text('Carbs (gm)'),
-            size: ColumnSize.S,
-            numeric: true,
-            onSort: (columnIndex, ascending) =>
-                _sort<num>((d) => d.carbs, columnIndex, ascending),
-          ),
-          DataColumn2(
-            label: const Text('Protein (gm)'),
-            size: ColumnSize.S,
-            numeric: true,
-            onSort: (columnIndex, ascending) =>
-                _sort<num>((d) => d.protein, columnIndex, ascending),
-          ),
-          DataColumn2(
-            label: const Text('Sodium (mg)'),
-            size: ColumnSize.S,
-            numeric: true,
-            onSort: (columnIndex, ascending) =>
-                _sort<num>((d) => d.sodium, columnIndex, ascending),
-          ),
-          DataColumn2(
-            label: const Text('Calcium (%)'),
-            size: ColumnSize.S,
-            numeric: true,
-            onSort: (columnIndex, ascending) =>
-                _sort<num>((d) => d.calcium, columnIndex, ascending),
-          ),
-          DataColumn2(
-            label: const Text('Iron (%)'),
-            size: ColumnSize.S,
-            numeric: true,
-            onSort: (columnIndex, ascending) =>
-                _sort<num>((d) => d.iron, columnIndex, ascending),
-          ),
-        ],
-        rows: List<DataRow>.generate(
-            _dataItems, (index) => _getRow(index, Colors.transparent)));
+      ),
+      fixedColumnsColor: Colors.grey[300],
+      fixedCornerColor: Colors.grey[400],
+      minWidth: 1000,
+      fixedTopRows: _fixedRows,
+      fixedLeftColumns: _fixedCols,
+      sortColumnIndex: _sortColumnIndex,
+      sortAscending: _sortAscending,
+      onSelectAll: (val) => setState(() => selectAll(val)),
+      columns: [
+        DataColumn2(
+          label: const Text('Desert'),
+          size: ColumnSize.S,
+          onSort: (columnIndex, ascending) =>
+              _sort<String>((d) => d.name, columnIndex, ascending),
+        ),
+        DataColumn2(
+          label: const Text('Calories'),
+          size: ColumnSize.S,
+          numeric: true,
+          onSort: (columnIndex, ascending) =>
+              _sort<num>((d) => d.calories, columnIndex, ascending),
+        ),
+        DataColumn2(
+          label: const Text('Fat (gm)'),
+          size: ColumnSize.S,
+          numeric: true,
+          onSort: (columnIndex, ascending) =>
+              _sort<num>((d) => d.fat, columnIndex, ascending),
+        ),
+        DataColumn2(
+          label: const Text('Carbs (gm)'),
+          size: ColumnSize.S,
+          numeric: true,
+          onSort: (columnIndex, ascending) =>
+              _sort<num>((d) => d.carbs, columnIndex, ascending),
+        ),
+        DataColumn2(
+          label: const Text('Protein (gm)'),
+          size: ColumnSize.S,
+          numeric: true,
+          onSort: (columnIndex, ascending) =>
+              _sort<num>((d) => d.protein, columnIndex, ascending),
+        ),
+        DataColumn2(
+          label: const Text('Sodium (mg)'),
+          size: ColumnSize.S,
+          numeric: true,
+          onSort: (columnIndex, ascending) =>
+              _sort<num>((d) => d.sodium, columnIndex, ascending),
+        ),
+        DataColumn2(
+          label: const Text('Calcium (%)'),
+          size: ColumnSize.S,
+          numeric: true,
+          onSort: (columnIndex, ascending) =>
+              _sort<num>((d) => d.calcium, columnIndex, ascending),
+        ),
+        DataColumn2(
+          label: const Text('Iron (%)'),
+          size: ColumnSize.S,
+          numeric: true,
+          onSort: (columnIndex, ascending) =>
+              _sort<num>((d) => d.iron, columnIndex, ascending),
+        ),
+      ],
+      rows: getCurrentRouteOption(context) == noData
+          ? []
+          : List<DataRow>.generate(_dessertsDataSource.rowCount,
+              (index) => _dessertsDataSource.getRow(index)),
+    );
   }
 
   Widget getPaginatedDataTable() {
