@@ -22,6 +22,13 @@ dev_dependencies:
   intl: ^0.20.0
   flutter_lints: ^5.0.0
   golden_toolkit: # Solving problem with not rendered fonts
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/listviews/
+
 screenshots:
   - description: 'DataTable2 with fixed top row and left column and customized styling'
     path: screenshots/fixed_row_col.png
