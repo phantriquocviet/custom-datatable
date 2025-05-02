@@ -184,7 +184,7 @@ class DataTable2 extends DataTable {
     this.fixedTopRows = 1,
     this.fixedLeftColumns = 0,
     this.lmRatio = 1.2,
-    this.sortArrowAnimationDuration = const Duration(milliseconds: 150),
+    this.sortArrowAnimationDuration = Duration.zero,
     Widget? sortArrowIcon,
     this.sortArrowIconColor,
     this.sortArrowBuilder,

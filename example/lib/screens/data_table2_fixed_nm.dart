@@ -172,7 +172,7 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
       fixedLeftColumns: _fixedCols,
       sortColumnIndex: _sortColumnIndex,
       sortAscending: _sortAscending,
-      onSelectAll: (val) => setState(() => selectAll(val)),
+      onSelectAll: (val) => setState(() => _dessertsDataSource.selectAll(val)),
       columns: [
         DataColumn2(
           label: const Text('Desert'),
