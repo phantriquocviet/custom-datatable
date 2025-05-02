@@ -195,7 +195,7 @@ class DataTable2 extends DataTable {
               'assets/listviews/ico_listview_sort_none.svg',
               width: 13,
               height: 13,
-              color: Colors.black38,
+              color: Colors.white,
             ),
         assert(fixedLeftColumns >= 0),
         assert(fixedTopRows >= 0);
@@ -457,7 +457,7 @@ class DataTable2 extends DataTable {
                         'assets/listviews/ico_listview_sort_none.svg',
                         width: 13,
                         height: 13,
-                        color: Colors.black38,
+                        color: Colors.white,
                       ),
                 sortArrowIconColor: sortArrowIconColor,
               ),
