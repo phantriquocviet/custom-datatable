@@ -151,6 +151,7 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
       scrollController: _controller,
       columnSpacing: 0,
       horizontalMargin: 12,
+      showCheckboxColumn: false,
       bottomMargin: 20,
       border: TableBorder.all(width: 1.0, color: Colors.grey),
       headingRowColor: WidgetStateProperty.resolveWith(
