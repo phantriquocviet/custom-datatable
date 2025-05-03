@@ -442,28 +442,31 @@ class DataTable2 extends DataTable {
       children: <Widget>[
         Flexible(child: label), // Đặt chữ trước
         if (onSort != null) ...<Widget>[
-          customArrows ??
-              _SortArrow(
-                visible: true,
-                up: sorted ? ascending : sorted,
-                duration: sortArrowAnimationDuration,
-                sortArrowIcon: sorted
-                    ? SvgPicture.asset(
-                        'assets/listviews/ico_listview_sort_up.svg',
-                        width: 13,
-                        height: 13,
-                        package: 'data_table_2',
-                        color: Colors.orange,
-                      )
-                    : SvgPicture.asset(
-                        'assets/listviews/ico_listview_sort_none.svg',
-                        width: 13,
-                        height: 13,
-                        package: 'data_table_2',
-                        color: Colors.white,
-                      ),
-                sortArrowIconColor: sortArrowIconColor,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: customArrows ??
+                _SortArrow(
+                  visible: true,
+                  up: sorted ? ascending : sorted,
+                  duration: sortArrowAnimationDuration,
+                  sortArrowIcon: sorted
+                      ? SvgPicture.asset(
+                          'assets/listviews/ico_listview_sort_up.svg',
+                          width: 13,
+                          height: 13,
+                          package: 'data_table_2',
+                          color: Colors.orange,
+                        )
+                      : SvgPicture.asset(
+                          'assets/listviews/ico_listview_sort_none.svg',
+                          width: 13,
+                          height: 13,
+                          package: 'data_table_2',
+                          color: Colors.white,
+                        ),
+                  sortArrowIconColor: sortArrowIconColor,
+                ),
+          ),
         ],
       ],
     );
