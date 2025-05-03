@@ -443,7 +443,7 @@ class DataTable2 extends DataTable {
         Flexible(child: label), // Đặt chữ trước
         if (onSort != null) ...<Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 6),
+            padding: const EdgeInsets.only(top: 5),
             child: customArrows ??
                 _SortArrow(
                   visible: true,

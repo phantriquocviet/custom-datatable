@@ -177,13 +177,16 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
       columns: [
         DataColumn2(
           label: const Text('Desert'),
-          size: ColumnSize.S,
+          fixedWidth: 60,
           onSort: (columnIndex, ascending) =>
               _sort<String>((d) => d.name, columnIndex, ascending),
         ),
         DataColumn2(
-          label: const Text('Calories'),
-          size: ColumnSize.S,
+          label: const Text(
+            'Calories',
+            style: TextStyle(fontSize: 18),
+          ),
+          fixedWidth: 110,
           numeric: true,
           onSort: (columnIndex, ascending) =>
               _sort<num>((d) => d.calories, columnIndex, ascending),
