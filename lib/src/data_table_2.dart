@@ -190,6 +190,8 @@ class DataTable2 extends DataTable {
     this.sortArrowBuilder,
     this.headingRowDecoration,
     required super.rows,
+    this.hoveredIndexNotifier,
+    this.colorHover = Colors.grey,
   })  : sortArrowIcon = sortArrowIcon ??
             SvgPicture.asset(
               'assets/listviews/ico_listview_sort_none.svg',
@@ -288,6 +290,11 @@ class DataTable2 extends DataTable {
 
   /// The height of each row (excluding the row that contains column headings).
   ///
+  final Color? colorHover;
+
+  ///
+  final ValueNotifier<int>? hoveredIndexNotifier;
+
   /// If null, [DataTableThemeData.dataRowMinHeight] is used. This value defaults
   /// to [kMinInteractiveDimension] to adhere to the Material Design
   /// specifications.
@@ -521,7 +528,8 @@ class DataTable2 extends DataTable {
       required GestureTapCallback? onRowSecondaryTap,
       required GestureTapDownCallback? onRowSecondaryTapDown,
       required VoidCallback? onSelectChanged,
-      required WidgetStateProperty<Color?>? overlayColor}) {
+      required WidgetStateProperty<Color?>? overlayColor,
+      required int rowIndex}) {
     final ThemeData themeData = Theme.of(context);
     final DataTableThemeData dataTableTheme = DataTableTheme.of(context);
 
@@ -604,7 +612,18 @@ class DataTable2 extends DataTable {
         child: label,
       );
     }
-    return label;
+    return ValueListenableBuilder<int>(
+        valueListenable: hoveredIndexNotifier ?? ValueNotifier<int>(-1),
+        builder: (context, hoveredIndex, child) {
+          return Container(
+            color: hoveredIndex == rowIndex ? colorHover : Colors.transparent,
+            child: MouseRegion(
+              onEnter: (_) => hoveredIndexNotifier?.value = rowIndex,
+              onExit: (_) => hoveredIndexNotifier?.value = -1,
+              child: label,
+            ),
+          );
+        });
   }
 
   @override
@@ -915,6 +934,7 @@ class DataTable2 extends DataTable {
 
                 var c = _buildDataCell(
                     context: context,
+                    rowIndex: rowIndex,
                     padding: padding,
                     specificRowHeight:
                         row is DataRow2 ? row.specificRowHeight : null,
