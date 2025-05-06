@@ -1095,6 +1095,7 @@ class DataTable2 extends DataTable {
                             behavior: ScrollConfiguration.of(context)
                                 .copyWith(scrollbars: false),
                             child: SingleChildScrollView(
+                                physics: const ClampingScrollPhysics(),
                                 controller: fixedRowsHorizontalController,
                                 scrollDirection: Axis.horizontal,
                                 child: (fixedRowsTabel != null)
@@ -1121,6 +1122,7 @@ class DataTable2 extends DataTable {
                                     : null),
                                 controller: coreVerticalController,
                                 child: SingleChildScrollView(
+                                    physics: const ClampingScrollPhysics(),
                                     controller: coreVerticalController,
                                     scrollDirection: Axis.vertical,
                                     child: SingleChildScrollView(
