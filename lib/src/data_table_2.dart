@@ -1093,7 +1093,7 @@ class DataTable2 extends DataTable {
                       children: [
                         ScrollConfiguration(
                             behavior: ScrollConfiguration.of(context)
-                                .copyWith(scrollbars: false),
+                                .copyWith(scrollbars: false, overscroll: false),
                             child: SingleChildScrollView(
                                 physics: const ClampingScrollPhysics(),
                                 controller: fixedRowsHorizontalController,
@@ -1126,6 +1126,7 @@ class DataTable2 extends DataTable {
                                     controller: coreVerticalController,
                                     scrollDirection: Axis.vertical,
                                     child: SingleChildScrollView(
+                                        physics: const ClampingScrollPhysics(),
                                         controller: coreHorizontalController,
                                         scrollDirection: Axis.horizontal,
                                         child: addBottomMargin(coreTable)))))
@@ -1142,7 +1143,8 @@ class DataTable2 extends DataTable {
                             fit: FlexFit.loose,
                             child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
-                                    .copyWith(scrollbars: false),
+                                    .copyWith(
+                                        scrollbars: false, overscroll: false),
                                 child: SingleChildScrollView(
                                     physics: const ClampingScrollPhysics(),
                                     controller: leftColumnVerticalContoller,
