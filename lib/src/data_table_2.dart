@@ -1177,6 +1177,7 @@ class DataTable2 extends DataTable {
                 decoration: decoration ?? theme.dataTableTheme.decoration,
                 child: Material(
                     type: MaterialType.transparency,
+                    color: Colors.transparent,
                     borderRadius: border?.borderRadius,
                     clipBehavior: clipBehavior,
                     child: rows.isEmpty

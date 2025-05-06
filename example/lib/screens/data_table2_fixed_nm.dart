@@ -153,6 +153,8 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
       horizontalMargin: 12,
       showCheckboxColumn: false,
       bottomMargin: 20,
+      hoveredIndexNotifier: ValueNotifier<int>(-1),
+      colorHover: Colors.grey[200],
       border: TableBorder.all(width: 1.0, color: Colors.grey),
       headingRowColor: WidgetStateProperty.resolveWith(
           (states) => _fixedRows > 0 ? Colors.grey[200] : Colors.transparent),
