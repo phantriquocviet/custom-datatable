@@ -616,7 +616,7 @@ class DataTable2 extends DataTable {
         valueListenable: hoveredIndexNotifier ?? ValueNotifier<int>(-1),
         builder: (context, hoveredIndex, child) {
           return Container(
-            color: hoveredIndex == rowIndex ? colorHover : Colors.grey.shade100,
+            color: hoveredIndex == rowIndex ? colorHover : Colors.transparent,
             child: MouseRegion(
               onEnter: (_) => hoveredIndexNotifier?.value = rowIndex,
               onExit: (_) => hoveredIndexNotifier?.value = -1,
