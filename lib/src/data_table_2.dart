@@ -191,7 +191,7 @@ class DataTable2 extends DataTable {
     this.headingRowDecoration,
     required super.rows,
     this.hoveredIndexNotifier,
-    this.colorHover = Colors.grey,
+    this.colorHover,
   })  : sortArrowIcon = sortArrowIcon ??
             SvgPicture.asset(
               'assets/listviews/ico_listview_sort_none.svg',
@@ -616,7 +616,7 @@ class DataTable2 extends DataTable {
         valueListenable: hoveredIndexNotifier ?? ValueNotifier<int>(-1),
         builder: (context, hoveredIndex, child) {
           return Container(
-            color: hoveredIndex == rowIndex ? colorHover : Colors.transparent,
+            color: hoveredIndex == rowIndex ? colorHover : Colors.grey.shade100,
             child: MouseRegion(
               onEnter: (_) => hoveredIndexNotifier?.value = rowIndex,
               onExit: (_) => hoveredIndexNotifier?.value = -1,
