@@ -152,6 +152,7 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
       columnSpacing: 0,
       horizontalMargin: 12,
       showCheckboxColumn: false,
+      showHeadingCheckBox: false,
       bottomMargin: 20,
       hoveredIndexNotifier: ValueNotifier<int>(-1),
       colorHover: Colors.grey[200],

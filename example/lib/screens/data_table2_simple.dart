@@ -12,6 +12,8 @@ class DataTable2SimpleDemo extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: DataTable2(
           columnSpacing: 12,
+          showCheckboxColumn: false,
+          showHeadingCheckBox: false,
           horizontalMargin: 12,
           minWidth: 600,
           smRatio: 0.75,
