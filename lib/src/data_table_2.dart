@@ -401,7 +401,12 @@ class DataTable2 extends DataTable {
       container: true,
       child: wrapInContainer(
         Theme(
-            data: ThemeData(checkboxTheme: checkboxTheme),
+            data: ThemeData(
+                checkboxTheme: checkboxTheme?.copyWith(
+              fillColor: checked == null
+                  ? WidgetStateProperty.all(Colors.transparent)
+                  : null,
+            )),
             child: Checkbox(
               value: checked,
               onChanged: onCheckboxChanged,

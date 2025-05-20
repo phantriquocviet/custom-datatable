@@ -145,8 +145,47 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
         ]));
   }
 
+  final checkboxTheme = CheckboxThemeData(
+    side: WidgetStateBorderSide.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return const BorderSide(color: Colors.blue, width: .05);
+      }
+      if (states.contains(WidgetState.focused)) {
+        return const BorderSide(color: Colors.white, width: 1);
+      }
+      return const BorderSide(color: Colors.grey, width: 1);
+    }),
+    fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+      if (states.contains(WidgetState.selected)) {
+        return Colors.blue; // Bright blue
+      }
+      return Colors.transparent; // No fill when unchecked
+    }),
+  );
+  final headingCheckboxTheme = CheckboxThemeData(
+    side: WidgetStateBorderSide.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return const BorderSide(color: Colors.blue, width: 1);
+      }
+      return const BorderSide(color: Colors.white, width: 1);
+    }),
+    fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+      if (states.contains(WidgetState.selected)) {
+        return const Color(0xFF4276FA); // Blue for checked and indeterminate
+      }
+      if (states.contains(WidgetState.dragged)) {
+        return Colors.red;
+      }
+      if (states.contains(WidgetState.focused)) {
+        return Colors.amber;
+      }
+      return Colors.transparent;
+    }),
+  );
   DataTable2 getDataTable() {
     return DataTable2(
+      datarowCheckboxTheme: checkboxTheme,
+      headingCheckboxTheme: headingCheckboxTheme,
       dividerThickness: 4,
       scrollController: _controller,
       columnSpacing: 0,
