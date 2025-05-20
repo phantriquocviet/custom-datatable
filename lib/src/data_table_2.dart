@@ -406,6 +406,11 @@ class DataTable2 extends DataTable {
               fillColor: checked == null
                   ? WidgetStateProperty.all(Colors.transparent)
                   : null,
+              side: checked == null
+                  ? WidgetStateBorderSide.resolveWith(
+                      (states) => BorderSide(width: 1.0, color: Colors.white),
+                    )
+                  : null,
             )),
             child: Checkbox(
               value: checked,
