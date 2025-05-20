@@ -383,25 +383,18 @@ class DataTable2 extends DataTable {
       required WidgetStateProperty<Color?>? overlayColor,
       required CheckboxThemeData? checkboxTheme,
       required bool tristate,
-      required double? rowHeight}) {
+      required double? rowHeight,
+      required double minWidth}) {
     final DataTableThemeData dataTableTheme = DataTableTheme.of(context);
-
-    final double effectiveHorizontalMargin = horizontalMargin ??
-        dataTableTheme.horizontalMargin ??
-        _horizontalMargin;
 
     final (effectiveDataRowMinHeight, effectiveDataRowMaxHeight) =
         getMinMaxRowHeight(dataTableTheme);
-
     Widget wrapInContainer(Widget child) => Container(
         alignment: checkboxAlignment,
         constraints: BoxConstraints(
+            minWidth: minWidth,
             minHeight: rowHeight ?? effectiveDataRowMinHeight,
             maxHeight: rowHeight ?? effectiveDataRowMaxHeight),
-        padding: EdgeInsetsDirectional.only(
-          start: checkboxHorizontalMargin ?? effectiveHorizontalMargin,
-          end: (checkboxHorizontalMargin ?? effectiveHorizontalMargin) / 2.0,
-        ),
         child: child);
 
     Widget contents = Semantics(
@@ -1255,7 +1248,8 @@ class DataTable2 extends DataTable {
               overlayColor: null,
               checkboxTheme: headingCheckboxTheme,
               tristate: true,
-              rowHeight: headingHeight)
+              rowHeight: headingHeight,
+              minWidth: checkBoxWidth)
           : SizedBox(
               height: headingHeight,
             );
@@ -1294,7 +1288,8 @@ class DataTable2 extends DataTable {
             tristate: false,
             rowHeight: rows[rowIndex] is DataRow2
                 ? (rows[rowIndex] as DataRow2).specificRowHeight
-                : null);
+                : null,
+            minWidth: checkBoxWidth);
 
         if (fixedCornerRows != null && rowIndex < fixedCornerRows.length - 1) {
           fixedCornerRows[rowIndex + 1].children[0] = x;
