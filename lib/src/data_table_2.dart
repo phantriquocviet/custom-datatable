@@ -482,9 +482,9 @@ class DataTable2 extends DataTable {
     );
 
     final TextStyle effectiveHeadingTextStyle = headingTextStyle ??
-        themeData.dataTableTheme.headingTextStyle?.copyWith(fontSize: 12.0) ??
-        themeData.textTheme.titleSmall!.copyWith(fontSize: 12.0);
-
+        themeData.dataTableTheme.headingTextStyle?.copyWith(fontSize: 50.0) ??
+        themeData.textTheme.titleSmall!.copyWith(fontSize: 20.0);
+    print(effectiveHeadingTextStyle.fontSize);
     label = Container(
       padding: padding,
       height: effectiveHeadingRowHeight,

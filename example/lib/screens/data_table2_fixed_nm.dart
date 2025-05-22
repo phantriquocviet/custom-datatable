@@ -227,7 +227,6 @@ class DataTable2FixedNMDemoState extends State<DataTable2FixedNMDemo> {
         DataColumn2(
           label: const Text(
             'Calories',
-            style: TextStyle(fontSize: 18),
           ),
           fixedWidth: 110,
           numeric: true,
