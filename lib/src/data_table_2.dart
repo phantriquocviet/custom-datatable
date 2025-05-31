@@ -1186,19 +1186,21 @@ class DataTable2 extends DataTable {
                     borderRadius: border?.borderRadius,
                     clipBehavior: clipBehavior,
                     child: rows.isEmpty
-                        ? Column(children: [
-                            SingleChildScrollView(
-                                physics: const ClampingScrollPhysics(),
-                                controller: coreHorizontalController,
-                                scrollDirection: Axis.horizontal,
-                                child: Table(
-                                    columnWidths: widthsAsMap,
-                                    border: border,
-                                    children: [headingRow])),
-                            Flexible(
-                                fit: FlexFit.tight,
-                                child: empty ?? const SizedBox())
-                          ])
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                                SingleChildScrollView(
+                                    physics: const ClampingScrollPhysics(),
+                                    controller: coreHorizontalController,
+                                    scrollDirection: Axis.horizontal,
+                                    child: Table(
+                                        columnWidths: widthsAsMap,
+                                        border: border,
+                                        children: [headingRow])),
+                                Flexible(
+                                    fit: FlexFit.tight,
+                                    child: empty ?? const SizedBox())
+                              ])
                         : Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
