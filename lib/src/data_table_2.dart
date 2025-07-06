@@ -360,6 +360,9 @@ class DataTable2 extends DataTable {
   /// Note: to change background color of fixed data rows use [DataTable2.headingRowColor]
   final Color? fixedCornerColor;
 
+  /// Row padding
+  final EdgeInsets paddingRow;
+
   (double, double) getMinMaxRowHeight(DataTableThemeData dataTableTheme) {
     final double effectiveDataRowMinHeight = dataRowHeight ??
         dataTableTheme.dataRowMinHeight ??
@@ -857,28 +860,7 @@ class DataTable2 extends DataTable {
                 dataColumnIndex++) {
               final DataColumn column = columns[dataColumnIndex];
 
-              final double paddingStart;
-              if (dataColumnIndex == 0 && displayCheckboxColumn) {
-                paddingStart = effectiveHorizontalMargin / 2.0;
-              } else if (dataColumnIndex == 0 && !displayCheckboxColumn) {
-                paddingStart = effectiveHorizontalMargin;
-              } else {
-                paddingStart = effectiveColumnSpacing / 2.0;
-              }
-
-              final double paddingEnd;
-              if (dataColumnIndex == columns.length - 1) {
-                paddingEnd = effectiveHorizontalMargin;
-              } else {
-                paddingEnd = effectiveColumnSpacing / 2.0;
-              }
-
-              // final EdgeInsetsDirectional padding = EdgeInsetsDirectional.only(
-              //   start: paddingStart,
-              //   end: paddingEnd,
-              // );
-              final EdgeInsetsDirectional padding =
-                  EdgeInsetsDirectional.all(8);
+              final EdgeInsets padding = EdgeInsets.all(8);
 
               tableColumnWidths[displayColumnIndex] =
                   FixedColumnWidth(widths[dataColumnIndex]);
@@ -940,7 +922,7 @@ class DataTable2 extends DataTable {
                 var c = _buildDataCell(
                     context: context,
                     rowIndex: rowIndex,
-                    padding: padding,
+                    padding: paddingRow,
                     specificRowHeight:
                         row is DataRow2 ? row.specificRowHeight : null,
                     label: cell.child,
