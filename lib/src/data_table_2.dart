@@ -192,6 +192,7 @@ class DataTable2 extends DataTable {
     required super.rows,
     this.hoveredIndexNotifier,
     this.colorHover,
+    this.paddingRow = const EdgeInsets.all(8),
   })  : sortArrowIcon = sortArrowIcon ??
             SvgPicture.asset(
               'assets/listviews/ico_listview_sort_none.svg',
