@@ -665,7 +665,9 @@ class DataTable2 extends DataTable {
     final rowsWithCheckbox = displayCheckboxColumn
         ? rows.where((DataRow row) => row.onSelectChanged != null)
         : <DataRow2>[];
-    final rowsChecked = rowsWithCheckbox.where((DataRow row) => row.selected);
+    final rowsChecked = rowsWithCheckbox is Iterable<DataRow2>
+        ? rowsWithCheckbox.where((DataRow2 row) => row.isChecked)
+        : rowsWithCheckbox.where((DataRow row) => row.selected);
     final allChecked =
         displayCheckboxColumn && rowsChecked.length == rowsWithCheckbox.length;
     final anyChecked = displayCheckboxColumn && rowsChecked.isNotEmpty;
