@@ -65,6 +65,7 @@ class DataRow2 extends DataRow {
       this.specificRowHeight,
       this.onTap,
       this.onDoubleTap,
+      this.isChecked = false,
       super.onLongPress,
       this.onSecondaryTap,
       this.onSecondaryTapDown});
@@ -79,6 +80,7 @@ class DataRow2 extends DataRow {
       this.specificRowHeight,
       this.onTap,
       this.onDoubleTap,
+      this.isChecked = false,
       super.onLongPress,
       this.onSecondaryTap,
       this.onSecondaryTapDown})
@@ -135,6 +137,7 @@ class DataRow2 extends DataRow {
   /// Row double tap handler, won't be called if tapped cell has any tap event handlers
   final GestureTapCallback? onDoubleTap;
 
+  final bool isChecked;
 // /// Row long press handler, won't be called if tapped cell has any tap event handlers
 // final GestureLongPressCallback? onLongPress;
 }
@@ -1271,7 +1274,7 @@ class DataTable2 extends DataTable {
       for (final DataRow row in rows) {
         var x = _buildCheckbox(
             context: context,
-            checked: row.selected,
+            checked: row is DataRow2 ? row.isChecked : row.selected,
             onRowTap: () {
               if (row is DataRow2 && row.onTap != null) {
                 row.onTap?.call();
