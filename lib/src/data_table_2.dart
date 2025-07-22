@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 bool dataTableShowLogs = false;
+double _defaultSortArrowIconWidth = 11;
+double _defaultSortArrowIconHeight = 11;
 
 /// Relative size of a column determines the share of total table width allocated
 /// to each individual column. When determining column widths ratios between S, M and L
@@ -199,8 +201,8 @@ class DataTable2 extends DataTable {
   })  : sortArrowIcon = sortArrowIcon ??
             SvgPicture.asset(
               'assets/listviews/ico_listview_sort_none.svg',
-              width: 13,
-              height: 13,
+              width: _defaultSortArrowIconWidth,
+              height: _defaultSortArrowIconHeight,
               package: 'data_table_2',
               color: Colors.white,
             ),
@@ -469,15 +471,15 @@ class DataTable2 extends DataTable {
                   sortArrowIcon: sorted
                       ? SvgPicture.asset(
                           'assets/listviews/ico_listview_sort_up.svg',
-                          width: 13,
-                          height: 13,
+                          width: _defaultSortArrowIconWidth,
+                          height: _defaultSortArrowIconHeight,
                           package: 'data_table_2',
                           color: Colors.orange,
                         )
                       : SvgPicture.asset(
                           'assets/listviews/ico_listview_sort_none.svg',
-                          width: 13,
-                          height: 13,
+                          width: _defaultSortArrowIconWidth,
+                          height: _defaultSortArrowIconHeight,
                           package: 'data_table_2',
                           color: Colors.white,
                         ),
