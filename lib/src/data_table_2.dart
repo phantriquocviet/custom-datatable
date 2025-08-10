@@ -1170,41 +1170,38 @@ class DataTable2 extends DataTable {
 
             var completeWidget = Container(
                 decoration: decoration ?? theme.dataTableTheme.decoration,
-                child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context),
-                  child: Material(
-                      type: MaterialType.transparency,
-                      color: Colors.transparent,
-                      borderRadius: border?.borderRadius,
-                      clipBehavior: clipBehavior,
-                      child: rows.isEmpty
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                  SingleChildScrollView(
-                                      physics: const ClampingScrollPhysics(),
-                                      controller: coreHorizontalController,
-                                      scrollDirection: Axis.horizontal,
-                                      child: Table(
-                                          columnWidths: widthsAsMap,
-                                          border: border,
-                                          children: [headingRow])),
-                                  Flexible(
-                                      fit: FlexFit.tight,
-                                      child: empty ?? const SizedBox())
-                                ])
-                          : Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (fixedColumnAndCornerCol != null)
-                                  fixedColumnAndCornerCol,
-                                if (fixedRowsAndCoreCol != null)
-                                  Flexible(
-                                      fit: FlexFit.tight,
-                                      child: fixedRowsAndCoreCol)
-                              ],
-                            )),
-                ));
+                child: Material(
+                    type: MaterialType.transparency,
+                    color: Colors.transparent,
+                    borderRadius: border?.borderRadius,
+                    clipBehavior: clipBehavior,
+                    child: rows.isEmpty
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                                SingleChildScrollView(
+                                    physics: const ClampingScrollPhysics(),
+                                    controller: coreHorizontalController,
+                                    scrollDirection: Axis.horizontal,
+                                    child: Table(
+                                        columnWidths: widthsAsMap,
+                                        border: border,
+                                        children: [headingRow])),
+                                Flexible(
+                                    fit: FlexFit.tight,
+                                    child: empty ?? const SizedBox())
+                              ])
+                        : Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (fixedColumnAndCornerCol != null)
+                                fixedColumnAndCornerCol,
+                              if (fixedRowsAndCoreCol != null)
+                                Flexible(
+                                    fit: FlexFit.tight,
+                                    child: fixedRowsAndCoreCol)
+                            ],
+                          )));
 
             return completeWidget;
           });
