@@ -1106,23 +1106,20 @@ class DataTable2 extends DataTable {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ScrollConfiguration(
-                            behavior: ScrollConfiguration.of(context)
-                                .copyWith(scrollbars: false, overscroll: false),
-                            child: SingleChildScrollView(
-                                physics: const ClampingScrollPhysics(),
-                                controller: fixedRowsHorizontalController,
-                                scrollDirection: Axis.horizontal,
-                                child: (fixedRowsTabel != null)
-                                    ? fixedRowsTabel
-                                    // WOrkaround for a bug when there's no horizontal scrollbar should there be no this SingleChildScrollView. I.e. originally this part was ommited and not scrollable was added to the column if not fixed top row was visible
-                                    : SizedBox(
-                                        height: 0,
-                                        width: widths.fold<double>(
-                                            0,
-                                            (previousValue, value) =>
-                                                previousValue + value),
-                                      ))),
+                        SingleChildScrollView(
+                            physics: const ClampingScrollPhysics(),
+                            controller: fixedRowsHorizontalController,
+                            scrollDirection: Axis.horizontal,
+                            child: (fixedRowsTabel != null)
+                                ? fixedRowsTabel
+                                // WOrkaround for a bug when there's no horizontal scrollbar should there be no this SingleChildScrollView. I.e. originally this part was ommited and not scrollable was added to the column if not fixed top row was visible
+                                : SizedBox(
+                                    height: 0,
+                                    width: widths.fold<double>(
+                                        0,
+                                        (previousValue, value) =>
+                                            previousValue + value),
+                                  )),
                         Flexible(
                             fit: FlexFit.tight,
                             child: Scrollbar(
@@ -1147,61 +1144,60 @@ class DataTable2 extends DataTable {
                                         child: addBottomMargin(coreTable)))))
                       ]));
 
-              fixedColumnAndCornerCol = fixedTopLeftCornerTable == null &&
-                      fixedColumnsTable == null
-                  ? null
-                  : Column(mainAxisSize: MainAxisSize.min, children: [
-                      if (fixedTopLeftCornerTable != null)
-                        fixedTopLeftCornerTable,
-                      if (fixedColumnsTable != null)
-                        Flexible(
-                            fit: FlexFit.loose,
-                            child: ScrollConfiguration(
-                                behavior: ScrollConfiguration.of(context)
-                                    .copyWith(
-                                        scrollbars: false, overscroll: false),
+              fixedColumnAndCornerCol =
+                  fixedTopLeftCornerTable == null && fixedColumnsTable == null
+                      ? null
+                      : Column(mainAxisSize: MainAxisSize.min, children: [
+                          if (fixedTopLeftCornerTable != null)
+                            fixedTopLeftCornerTable,
+                          if (fixedColumnsTable != null)
+                            Flexible(
+                                fit: FlexFit.loose,
                                 child: SingleChildScrollView(
                                     physics: const ClampingScrollPhysics(),
                                     controller: leftColumnVerticalContoller,
                                     scrollDirection: Axis.vertical,
-                                    child: addBottomMargin(fixedColumnsTable))))
-                    ]);
+                                    child: addBottomMargin(fixedColumnsTable)))
+                        ]);
             }
 
             var completeWidget = Container(
                 decoration: decoration ?? theme.dataTableTheme.decoration,
-                child: Material(
-                    type: MaterialType.transparency,
-                    color: Colors.transparent,
-                    borderRadius: border?.borderRadius,
-                    clipBehavior: clipBehavior,
-                    child: rows.isEmpty
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                SingleChildScrollView(
-                                    physics: const ClampingScrollPhysics(),
-                                    controller: coreHorizontalController,
-                                    scrollDirection: Axis.horizontal,
-                                    child: Table(
-                                        columnWidths: widthsAsMap,
-                                        border: border,
-                                        children: [headingRow])),
-                                Flexible(
-                                    fit: FlexFit.tight,
-                                    child: empty ?? const SizedBox())
-                              ])
-                        : Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (fixedColumnAndCornerCol != null)
-                                fixedColumnAndCornerCol,
-                              if (fixedRowsAndCoreCol != null)
-                                Flexible(
-                                    fit: FlexFit.tight,
-                                    child: fixedRowsAndCoreCol)
-                            ],
-                          )));
+                child: ScrollConfiguration(
+                  behavior: ScrollBehavior(),
+                  child: Material(
+                      type: MaterialType.transparency,
+                      color: Colors.transparent,
+                      borderRadius: border?.borderRadius,
+                      clipBehavior: clipBehavior,
+                      child: rows.isEmpty
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                  SingleChildScrollView(
+                                      physics: const ClampingScrollPhysics(),
+                                      controller: coreHorizontalController,
+                                      scrollDirection: Axis.horizontal,
+                                      child: Table(
+                                          columnWidths: widthsAsMap,
+                                          border: border,
+                                          children: [headingRow])),
+                                  Flexible(
+                                      fit: FlexFit.tight,
+                                      child: empty ?? const SizedBox())
+                                ])
+                          : Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (fixedColumnAndCornerCol != null)
+                                  fixedColumnAndCornerCol,
+                                if (fixedRowsAndCoreCol != null)
+                                  Flexible(
+                                      fit: FlexFit.tight,
+                                      child: fixedRowsAndCoreCol)
+                              ],
+                            )),
+                ));
 
             return completeWidget;
           });
