@@ -1164,7 +1164,7 @@ class DataTable2 extends DataTable {
             var completeWidget = Container(
                 decoration: decoration ?? theme.dataTableTheme.decoration,
                 child: ScrollConfiguration(
-                  behavior: ScrollBehavior(),
+                  behavior: ScrollBehavior().copyWith(scrollbars: false),
                   child: Material(
                       type: MaterialType.transparency,
                       color: Colors.transparent,
