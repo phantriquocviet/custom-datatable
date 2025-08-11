@@ -5,6 +5,7 @@
 // Copyright 2021 Maxim Saplin - changes and modifications to original Flutter implementation of DataTable
 
 import 'dart:math' as math;
+import 'dart:ui' show PointerDeviceKind;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -1164,7 +1165,13 @@ class DataTable2 extends DataTable {
             var completeWidget = Container(
                 decoration: decoration ?? theme.dataTableTheme.decoration,
                 child: ScrollConfiguration(
-                  behavior: ScrollBehavior().copyWith(scrollbars: false),
+                  behavior: ScrollBehavior().copyWith(
+                      scrollbars: false,
+                      dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                        PointerDeviceKind.trackpad
+                      }),
                   child: Material(
                       type: MaterialType.transparency,
                       color: Colors.transparent,
