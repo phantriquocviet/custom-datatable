@@ -71,7 +71,8 @@ class DataRow2 extends DataRow {
       this.isChecked = false,
       super.onLongPress,
       this.onSecondaryTap,
-      this.onSecondaryTapDown});
+      this.onSecondaryTapDown,
+      this.onSecondaryTapUp});
 
   DataRow2.byIndex(
       {super.index,
@@ -86,7 +87,8 @@ class DataRow2 extends DataRow {
       this.isChecked = false,
       super.onLongPress,
       this.onSecondaryTap,
-      this.onSecondaryTapDown})
+      this.onSecondaryTapDown,
+      this.onSecondaryTapUp})
       : super.byIndex();
 
   /// Clone row, if non null values are provided - override the corresponding fields
@@ -103,6 +105,7 @@ class DataRow2 extends DataRow {
     GestureLongPressCallback? onLongPress,
     GestureTapCallback? onSecondaryTap,
     GestureTapDownCallback? onSecondaryTapDown,
+    GestureTapUpCallback? onSecondaryTapUp,
   }) {
     return DataRow2(
       key: key ?? this.key,
@@ -117,6 +120,7 @@ class DataRow2 extends DataRow {
       onLongPress: onLongPress ?? this.onLongPress,
       onSecondaryTap: onSecondaryTap ?? this.onSecondaryTap,
       onSecondaryTapDown: onSecondaryTapDown ?? this.onSecondaryTapDown,
+      onSecondaryTapUp: onSecondaryTapUp ?? this.onSecondaryTapUp,
     );
   }
 
@@ -136,6 +140,9 @@ class DataRow2 extends DataRow {
 
   /// Row right mouse down handler, won't be called if tapped cell has any tap event handlers
   final GestureTapDownCallback? onSecondaryTapDown;
+
+  /// Row right mouse up handler, won't be called if tapped cell has any tap event handlers
+  final GestureTapUpCallback? onSecondaryTapUp;
 
   /// Row double tap handler, won't be called if tapped cell has any tap event handlers
   final GestureTapCallback? onDoubleTap;
@@ -542,6 +549,7 @@ class DataTable2 extends DataTable {
       required GestureLongPressCallback? onRowLongPress,
       required GestureTapCallback? onRowSecondaryTap,
       required GestureTapDownCallback? onRowSecondaryTapDown,
+      required GestureTapUpCallback? onRowSecondaryTapUp,
       required VoidCallback? onSelectChanged,
       required WidgetStateProperty<Color?>? overlayColor,
       required int rowIndex}) {
@@ -607,6 +615,7 @@ class DataTable2 extends DataTable {
         // Also add row level events to cells
         onSecondaryTap: onRowSecondaryTap,
         onSecondaryTapDown: onRowSecondaryTapDown,
+        onSecondaryTapUp: onRowSecondaryTapUp,
         overlayColor: overlayColor,
         child: label,
       );
@@ -950,6 +959,8 @@ class DataTable2 extends DataTable {
                         row is DataRow2 ? row.onSecondaryTap : null,
                     onRowSecondaryTapDown:
                         row is DataRow2 ? row.onSecondaryTapDown : null,
+                    onRowSecondaryTapUp:
+                        row is DataRow2 ? row.onSecondaryTapUp : null,
                     onSelectChanged: row.onSelectChanged != null
                         ? () => row.onSelectChanged!(!row.selected)
                         : null,
