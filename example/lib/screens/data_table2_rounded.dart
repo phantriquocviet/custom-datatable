@@ -140,6 +140,10 @@ class DataTable2RoundedDemoState extends State<DataTable2RoundedDemo> {
         rows: List<DataRow>.generate(
             _dessertsDataSource.rowCount,
             (index) => _dessertsDataSource.getRow(index).clone(
+                onSecondaryTapUp: (details) {
+                  print('onSecondaryTapUp');
+                  print(details);
+                },
                 decoration: ShapeDecoration(
                     shape: RoundedRectangleBorder(
                             side: BorderSide(

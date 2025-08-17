@@ -595,7 +595,8 @@ class DataTable2 extends DataTable {
         onDoubleTap != null ||
         onLongPress != null ||
         onTapDown != null ||
-        onTapCancel != null) {
+        onTapCancel != null ||
+        onRowSecondaryTapUp != null) {
       // cell level
       label = InkWell(
         onTap: () {
