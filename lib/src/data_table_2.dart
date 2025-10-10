@@ -1107,7 +1107,7 @@ class DataTable2 extends DataTable {
               // For iOS/Cupertino scrollbar
               fixedRowsAndCoreCol = RawScrollbar(
                   padding: EdgeInsets.zero,
-                  trackColor: Colors.grey[300],
+                  trackColor: Colors.grey[200],
                   trackRadius: Radius.circular(20.0),
                   trackBorderColor: Colors.transparent,
                   controller: coreHorizontalController,
