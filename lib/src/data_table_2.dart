@@ -1105,16 +1105,19 @@ class DataTable2 extends DataTable {
               var isiOS = Theme.of(context).platform == TargetPlatform.iOS;
 
               // For iOS/Cupertino scrollbar
-              fixedRowsAndCoreCol = Scrollbar(
-                  thumbVisibility: isHorizontalScrollBarVisible ??
-                      (isiOS
-                          ? scrollBarTheme.thumbVisibility
-                              ?.resolve({WidgetState.hovered})
-                          : null),
+              fixedRowsAndCoreCol = RawScrollbar(
+                  padding: EdgeInsets.zero,
+                  trackColor: Colors.grey[300],
+                  trackRadius: Radius.circular(20.0),
+                  trackBorderColor: Colors.transparent,
+                  controller: coreHorizontalController,
+                  trackVisibility: true,
+                  thumbVisibility: true,
                   thickness: (isiOS
                       ? scrollBarTheme.thickness?.resolve({WidgetState.hovered})
                       : null),
-                  controller: coreHorizontalController,
+                  radius: Radius.circular(20.0),
+                  minOverscrollLength: 0.0,
                   child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
