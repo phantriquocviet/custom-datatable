@@ -1300,8 +1300,6 @@ class DataTable2 extends DataTable {
             onRowTap: () {
               if (row is DataRow2 && row.onTap != null) {
                 row.onTap?.call();
-              } else {
-                row.onSelectChanged?.call(!row.selected);
               }
             },
             onCheckboxChanged: row.onSelectChanged,
