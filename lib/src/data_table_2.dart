@@ -1115,7 +1115,7 @@ class DataTable2 extends DataTable {
                   thumbVisibility: true,
                   thickness: (isiOS
                       ? scrollBarTheme.thickness?.resolve({WidgetState.hovered})
-                      : 12),
+                      : 9),
                   radius: Radius.circular(20.0),
                   minOverscrollLength: 0.0,
                   child: Column(
