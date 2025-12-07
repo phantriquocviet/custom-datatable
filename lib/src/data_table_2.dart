@@ -1107,11 +1107,6 @@ class DataTable2 extends DataTable {
               // For iOS/Cupertino scrollbar
               fixedRowsAndCoreCol = ScrollbarTheme(
                 data: ScrollbarThemeData(
-                    trackColor: WidgetStateProperty.resolveWith(
-                        (Set<WidgetState> states) {
-                      // Custom track color - light grey with opacity
-                      return Colors.grey[200];
-                    }),
                     thumbColor: WidgetStatePropertyAll(
                         Colors.grey.withValues(alpha: 0.7)),
                     trackVisibility: const WidgetStatePropertyAll(true),
