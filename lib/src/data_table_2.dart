@@ -1112,6 +1112,8 @@ class DataTable2 extends DataTable {
                       // Custom track color - light grey with opacity
                       return Colors.grey[200];
                     }),
+                    thumbColor: WidgetStatePropertyAll(
+                        Colors.grey.withValues(alpha: 0.7)),
                     trackVisibility: const WidgetStatePropertyAll(true),
                     thumbVisibility: const WidgetStatePropertyAll(true),
                     thickness: WidgetStatePropertyAll(isiOS
