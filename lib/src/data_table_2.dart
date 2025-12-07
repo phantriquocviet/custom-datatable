@@ -1110,7 +1110,7 @@ class DataTable2 extends DataTable {
                   trackColor: Colors.grey[200],
                   trackRadius: Radius.circular(20.0),
                   trackBorderColor: Colors.transparent,
-                  controller: coreHorizontalController,
+                  controller: fixedRowsHorizontalController,
                   trackVisibility: true,
                   thumbVisibility: true,
                   thickness: (isiOS
