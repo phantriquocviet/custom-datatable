@@ -1105,19 +1105,23 @@ class DataTable2 extends DataTable {
               var isiOS = Theme.of(context).platform == TargetPlatform.iOS;
 
               // For iOS/Cupertino scrollbar
-              fixedRowsAndCoreCol = RawScrollbar(
-                  padding: EdgeInsets.zero,
-                  trackColor: Colors.grey[200],
-                  trackRadius: Radius.circular(20.0),
-                  trackBorderColor: Colors.transparent,
-                  controller: fixedRowsHorizontalController,
-                  trackVisibility: true,
-                  thumbVisibility: true,
-                  thickness: (isiOS
-                      ? scrollBarTheme.thickness?.resolve({WidgetState.hovered})
-                      : 9),
-                  radius: Radius.circular(20.0),
-                  minOverscrollLength: 0.0,
+              fixedRowsAndCoreCol = ScrollbarTheme(
+                data: ScrollbarThemeData(
+                    trackColor: WidgetStateProperty.resolveWith(
+                        (Set<WidgetState> states) {
+                      // Custom track color - light grey with opacity
+                      return Colors.grey[200];
+                    }),
+                    trackVisibility: const WidgetStatePropertyAll(true),
+                    thumbVisibility: const WidgetStatePropertyAll(true),
+                    thickness: WidgetStatePropertyAll(isiOS
+                        ? scrollBarTheme.thickness
+                                ?.resolve({WidgetState.hovered}) ??
+                            9
+                        : 9),
+                    radius: const Radius.circular(20.0)),
+                child: Scrollbar(
+                  controller: coreHorizontalController,
                   child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1158,7 +1162,9 @@ class DataTable2 extends DataTable {
                                         controller: coreHorizontalController,
                                         scrollDirection: Axis.horizontal,
                                         child: addBottomMargin(coreTable)))))
-                      ]));
+                      ]),
+                ),
+              );
 
               fixedColumnAndCornerCol =
                   fixedTopLeftCornerTable == null && fixedColumnsTable == null
