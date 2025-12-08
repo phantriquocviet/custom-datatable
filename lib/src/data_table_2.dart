@@ -629,7 +629,7 @@ class DataTable2 extends DataTable {
       // row level
       label = TableRowInkWell(
         onTap: onRowTap,
-        onDoubleTap: onRowDoubleTap,
+        onDoubleTap: onRowDoubleTap ?? onSelectChanged,
         onLongPress: onRowLongPress,
         onSecondaryTap: onRowSecondaryTap,
         onSecondaryTapDown: onRowSecondaryTapDown,
@@ -963,7 +963,9 @@ class DataTable2 extends DataTable {
                     onRowSecondaryTapUp:
                         row is DataRow2 ? row.onSecondaryTapUp : null,
                     onSelectChanged: row.onSelectChanged != null
-                        ? () => row.onSelectChanged!(!row.selected)
+                        ? () => row is DataRow2
+                            ? row.onSelectChanged!(!row.isChecked)
+                            : row.onSelectChanged!(!row.selected)
                         : null,
                     overlayColor: row.color ?? effectiveDataRowColor);
 
