@@ -629,7 +629,7 @@ class DataTable2 extends DataTable {
       // row level
       label = TableRowInkWell(
         onTap: onRowTap,
-        onDoubleTap: onRowDoubleTap,
+        onDoubleTap: onRowDoubleTap ?? onSelectChanged,
         onLongPress: onRowLongPress,
         onSecondaryTap: onRowSecondaryTap,
         onSecondaryTapDown: onRowSecondaryTapDown,
